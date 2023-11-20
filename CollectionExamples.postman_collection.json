@@ -1,0 +1,1436 @@
+{
+	"info": {
+		"_postman_id": "ffc5af4e-cdbb-4462-8ed2-517b2fe82826",
+		"name": "Collection Examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31008604"
+	},
+	"item": [
+		{
+			"name": "Folder1",
+			"item": [
+				{
+					"name": "API1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API1 test script\");\r",
+									"console.clear();\r",
+									"console.log(pm.response.text());\r",
+									"console.log(typeof (pm.response));\r",
+									"const responseJson = pm.response.json();\r",
+									"console.log(`Testcase exeCount is: ${pm.test.index()}`);\r",
+									"pm.test(\"Test1\", () => {\r",
+									"    pm.expect(pm.globals.get(\"apiToken\")).not.to.be.equals(responseJson.headers.host);\r",
+									"    pm.expect(responseJson.headers.host).not.equals(pm.globals.get(\"apiToken\"));\r",
+									"    pm.expect(responseJson.headers.host).equals(\"postman-echo.com\");\r",
+									"    pm.expect(responseJson.headers[\"x-forwarded-proto\"]).eq(\"https\");\r",
+									"    pm.expect(responseJson.yes).does.not.exist;\r",
+									"    pm.expect(responseJson.args).exist;\r",
+									"    pm.expect(responseJson.url).contain(\"echo\");\r",
+									"    pm.expect(responseJson.headers[\"x-forwarded-port\"]).to.have.lengthOf(3);\r",
+									"    pm.expect(responseJson.headers[\"x-forwarded-port\"]).to.have.length.greaterThan(1);\r",
+									"    pm.expect(responseJson.headers[\"x-forwarded-port\"]).to.have.length.lessThan(10);\r",
+									"    pm.expect(responseJson.headers[\"x-forwarded-port\"]).to.be.a('string');\r",
+									"    pm.expect(responseJson.headers[\"x-forwarded-port\"]).not.to.be.an('object');\r",
+									"    pm.expect(responseJson.args).to.be.an('object').of.empty;\r",
+									"    pm.expect(responseJson.args).to.be.not.an('array');\r",
+									"    pm.expect(responseJson).to.have.not.eql();\r",
+									"    pm.expect(responseJson).to.have.not.empty;\r",
+									"    //pm.expect(responseJson).to.have.body(\"sails\");\r",
+									"});\r",
+									"console.log(`Testcase exeCount is: ${pm.test.index()}`);\r",
+									"pm.test(\"Test2\", () => {\r",
+									"    pm.expect(responseJson.headers[\"x-forwarded-port\"]).to.have.not.lengthOf(5);\r",
+									"});\r",
+									"console.log(`Testcase exeCount is: ${pm.test.index()}`);\r",
+									"pm.test(\"Test3\", () => {\r",
+									"    pm.expect(responseJson.headers.host).equals(\"postman-echo.com\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test4\", () => {\r",
+									"    //pm.expect(pm.response.headers.count()).equals(6);\r",
+									"    let someProp = \"Date\";\r",
+									"    pm.expect(pm.response.headers.get(someProp), `${someProp} Doesn't exist`).to.be.exist;\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\"), \"Doesn't contain\").contains(\"application/json\");\r",
+									"});\r",
+									"pm.test(\"Test5\", () => {\r",
+									"    pm.response.to.have.body(responseJson);\r",
+									"    pm.response.to.have.jsonBody(responseJson);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test6\", () => {\r",
+									"    pm.expect(pm.cookies.has(\"sails.sid\")).to.be.true;\r",
+									"    pm.expect(pm.cookies.has(\"JSESSIONID\")).to.be.false;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test7\", () => {\r",
+									"    pm.expect({ a: 1, b: 2 }).to.have.all.keys([\"a\", \"b\"]).to.be.exist;\r",
+									"    pm.expect({ a: 1, b: 2 }).to.have.all.keys([\"a\", \"b\"])\r",
+									"    pm.expect({ a: 1, b: 2 }).to.have.any.keys([\"a\", \"b\", 'c'])\r",
+									"    pm.expect({ a: 1, b: 2 }).to.not.have.any.keys([\"d\", \"c\"])\r",
+									"});\r",
+									"const body = {\r",
+									"    \"id\": \"d8893057-3e91-4cdd-a36f-a0af460b6373\",\r",
+									"    \"created\": true,\r",
+									"    \"errors\": []\r",
+									"};\r",
+									"const expectedObject = {\r",
+									"    \"created\": true,\r",
+									"    \"errors\": []\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Test8\", () => {\r",
+									"    pm.expect(body).to.deep.include(expectedObject);\r",
+									"    //pm.expect(123).to.equals(\"a\");\r",
+									"    //Deep equality error\r",
+									"    //pm.expect(1).to.eql(\"1\");\r",
+									"    pm.variables.replaceIn('{{$randomFirstName}}')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test9\", () => {\r",
+									"\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.expect(pm.response.code).has.to.equal(300);\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201])\r",
+									"\r",
+									"\r",
+									"});\r",
+									"\r",
+									"const body1 = { \"res\": { \"info\": 5 } };\r",
+									"var template = `<p>{{headers.accept}}</p>`;\r",
+									"pm.visualizer.set(template, {\r",
+									"    res: pm.response.json()\r",
+									"});\r",
+									"\r",
+									"// Example with a plain string URL\r",
+									"pm.sendRequest('https://postman-echo.com/get', (error, response) => {\r",
+									"    if (error) {\r",
+									"        console.log(error);\r",
+									"    } else {\r",
+									"        console.log(response);\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"// Example with a full-fledged request\r",
+									"const postRequest = {\r",
+									"    url: 'https://postman-echo.com/post',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json',\r",
+									"        'X-Foo': 'bar'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({ key: 'this is json' })\r",
+									"    }\r",
+									"};\r",
+									"pm.sendRequest(postRequest, (error, response) => {\r",
+									"    console.log(error ? error : response.json());\r",
+									"});\r",
+									"\r",
+									"// Example containing a test\r",
+									"pm.sendRequest('https://postman-echo.com/get', (error, response) => {\r",
+									"    if (error) {\r",
+									"        console.log(error);\r",
+									"    }\r",
+									"\r",
+									"    pm.test('response should be okay to process', () => {\r",
+									"        pm.expect(error).to.equal(null);\r",
+									"        pm.expect(response).to.have.property('code', 200);\r",
+									"        pm.expect(response).to.have.property('status', 'OK');\r",
+									"    });\r",
+									"});\r",
+									"console.log(`Testcase exeCount is: ${pm.test.index()}`);\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API1 prerequest script\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API1 Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API1 test script\");\r",
+									"console.clear();\r",
+									"console.log(pm.response.text());\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test1\", () => {\r",
+									"    pm.expect(responseJson.errors).to.be.an(\"array\").of.empty;\r",
+									"    pm.expect(responseJson.areas).has.include(\"goods\");\r",
+									"    const filter = responseJson.settings.find(a => a.type === \"notification\");\r",
+									"    pm.expect(filter.detail).to.be.an('array');\r",
+									"    pm.expect(filter.detail[0]).to.be.a('string');\r",
+									"    pm.expect(filter.detail).have.to.include(\"sms\");\r",
+									"    pm.expect(filter.detail).to.have.members([\"sms\", \"email\"]).to.be.matches\r",
+									"});\r",
+									"pm.test(\"Test2\", () => {\r",
+									"    pm.expect({ a: 1, b: 2 }).to.have.all.keys([\"a\", \"b\"]).to.be.exist;\r",
+									"    pm.expect({ a: 1, b: 2 }).to.have.all.keys([\"a\", \"b\"]);\r",
+									"    pm.expect({ a: 1, b: 2 }).to.have.any.keys([\"a\", \"b\", 'c'])\r",
+									"    pm.expect({ a: 1, b: 2 }).to.not.have.any.keys([\"a\", \"c\"])\r",
+									"});\r",
+									"\r",
+									"var template = `\r",
+									"     <style type=\"text/css\">\r",
+									"        .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+									"        .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+									"        .tftable tr {background-color:#ffff00;}\r",
+									"        .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+									"        .tftable tr:hover {background-color:#e0ffff;}\r",
+									"    </style>\r",
+									"    <table  class=\"tftable\">\r",
+									"\r",
+									"    <tr>\r",
+									"    <th>Type</th>\r",
+									"    <th>Detail</th>\r",
+									"    </tr>\r",
+									"    {{#each response.settings}}\r",
+									"        <tr id=type_{{@type}}>\r",
+									"         <td>{{type}{</td>\r",
+									"        <td>{{detail[0]}}</td>\r",
+									"        </tr>\r",
+									"    {{/each}}\r",
+									"\r",
+									"    </table>\r",
+									"    `;\r",
+									"\r",
+									"pm.visualizer.set(template, { res: pm.response.json() });   "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API1 prerequest script\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://rupesh.free.beeceptor.com/todos/1",
+							"protocol": "https",
+							"host": [
+								"rupesh",
+								"free",
+								"beeceptor",
+								"com"
+							],
+							"path": [
+								"todos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API2 prerequest script\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API2 test script\")\r",
+									"// GO TO THE END OF THE TEST SCRIPT.\r",
+									"var template = `\r",
+									"<style>\r",
+									"        .fill,\r",
+									"body,\r",
+									"html {\r",
+									"  height: 100%\r",
+									"}\r",
+									"\r",
+									"#json_vl,\r",
+									".td_head,\r",
+									".td_row_even,\r",
+									".td_row_odd {\r",
+									"  font-size: small\r",
+									"}\r",
+									"\r",
+									"#json_pnl,\r",
+									"#xxa,\r",
+									".navbar-header,\r",
+									".navbar-nav,\r",
+									".navbar-nav>li,\r",
+									".td_head {\r",
+									"  float: left\r",
+									"}\r",
+									"\r",
+									".fill {\r",
+									"  min-height: 100%\r",
+									"}\r",
+									"\r",
+									"#json_vl {\r",
+									"  font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace\r",
+									"}\r",
+									"\r",
+									"#widget {\r",
+									"  width: 100%\r",
+									"}\r",
+									"\r",
+									".top_size {\r",
+									"  height: 51px\r",
+									"}\r",
+									"\r",
+									"#all_panels {\r",
+									"  height: 100%;\r",
+									"  min-height: 100%\r",
+									"}\r",
+									"\r",
+									"#aboutLnk {\r",
+									"  position: fixed;\r",
+									"  right: 10px;\r",
+									"  top: 15px\r",
+									"}\r",
+									"\r",
+									"#inner_text {\r",
+									"  display: block;\r",
+									"  position: absolute;\r",
+									"  height: auto;\r",
+									"  bottom: 0;\r",
+									"  top: 0;\r",
+									"  left: 0;\r",
+									"  right: 0;\r",
+									"  margin-top: 51px;\r",
+									"  margin-bottom: 0\r",
+									"}\r",
+									"\r",
+									"#json_pnl {\r",
+									"  background-color: #ccc;\r",
+									"  width: 33.3%\r",
+									"}\r",
+									"\r",
+									"#xxa {\r",
+									"  background-color: #E8E8E8;\r",
+									"  width: 66.7%\r",
+									"}\r",
+									"\r",
+									"#table_pnl,\r",
+									"#tree_pnl {\r",
+									"  background-color: #E8E8E8;\r",
+									"  float: left;\r",
+									"  width: 50%\r",
+									"}\r",
+									"\r",
+									"#sharethis {\r",
+									"  position: fixed;\r",
+									"  right: 80px;\r",
+									"  top: 10px\r",
+									"}\r",
+									"\r",
+									"#inner_tbl {\r",
+									"  padding-left: 2px\r",
+									"}\r",
+									"\r",
+									".td_row_even {\r",
+									"  padding: 2px;\r",
+									"  background-color: #F6F4F0\r",
+									"}\r",
+									"\r",
+									".td_row_odd {\r",
+									"  padding: 2px;\r",
+									"  background-color: #FFF\r",
+									"}\r",
+									"\r",
+									".td_head {\r",
+									"  padding: 2px;\r",
+									"  font-weight: 700\r",
+									"}\r",
+									"\r",
+									"input,\r",
+									"p,\r",
+									"select,\r",
+									"td,\r",
+									"textarea,\r",
+									"th {\r",
+									"  font-size: 1em\r",
+									"}\r",
+									"\r",
+									"table,\r",
+									"td,\r",
+									"th {\r",
+									"  border: 1px solid gray\r",
+									"}\r",
+									"\r",
+									"textarea {\r",
+									"  -moz-box-sizing: border-box;\r",
+									"  -webkit-box-sizing: border-box;\r",
+									"  box-sizing: border-box;\r",
+									"  display: block;\r",
+									"  width: 100%;\r",
+									"  height: 100%;\r",
+									"  margin: 0;\r",
+									"  padding: 4px;\r",
+									"  border: 1px solid #333;\r",
+									"  overflow-y: auto;\r",
+									"  overflow-x: hidden\r",
+									"}\r",
+									"\r",
+									"*,\r",
+									"html {\r",
+									"  font-family: Verdana, Arial, Helvetica, sans-serif\r",
+									"}\r",
+									"\r",
+									"form,\r",
+									"h1,\r",
+									"h2,\r",
+									"h3,\r",
+									"h4,\r",
+									"h5,\r",
+									"li,\r",
+									"p,\r",
+									"ul {\r",
+									"  margin: 0;\r",
+									"  padding: 0\r",
+									"}\r",
+									"\r",
+									"img {\r",
+									"  border: none\r",
+									"}\r",
+									"\r",
+									"p {\r",
+									"  margin: 0 0 1em\r",
+									"}\r",
+									"\r",
+									"table {\r",
+									"  font-size: 100%;\r",
+									"  background-color: white;\r",
+									"}\r",
+									"\r",
+									"ol.tree {\r",
+									"  padding: 0 0 0 30px;\r",
+									"  width: 300px\r",
+									"}\r",
+									"\r",
+									"li {\r",
+									"  position: relative;\r",
+									"  margin-left: -15px;\r",
+									"  list-style: none\r",
+									"}\r",
+									"\r",
+									"li.file {\r",
+									"  margin-left: -1px !important\r",
+									"}\r",
+									"\r",
+									"li.file a {\r",
+									"  background: url(leaf.png)0 5px no-repeat;\r",
+									"  color: #000;\r",
+									"  padding-left: 12px;\r",
+									"  text-decoration: none;\r",
+									"  display: block;\r",
+									"  font-size: small\r",
+									"}\r",
+									"\r",
+									"li.file a[href$='.css'],\r",
+									"li.file a[href$='.js'],\r",
+									"li.file a[href*='.pdf'],\r",
+									"li.file a[href*='.html'] {\r",
+									"  background: url(http://www.thecssninja.com/demo/css_tree/document.png)no-repeat\r",
+									"}\r",
+									"\r",
+									"li input {\r",
+									"  position: absolute;\r",
+									"  left: 0;\r",
+									"  margin-left: 0;\r",
+									"  opacity: 0;\r",
+									"  z-index: 2;\r",
+									"  cursor: pointer;\r",
+									"  height: 1em;\r",
+									"  width: 1em;\r",
+									"  top: 0\r",
+									"}\r",
+									"\r",
+									"li input+ol {\r",
+									"  background: url(http://www.thecssninja.com/demo/css_tree/toggle-small-expand.png)40px -3px no-repeat;\r",
+									"  margin: -20px 0 0 -44px;\r",
+									"  height: 1em;\r",
+									"  padding: 1.563em 0 0 80px\r",
+									"}\r",
+									"\r",
+									"li label.lbl_array,\r",
+									"li label.lbl_obj {\r",
+									"  display: block;\r",
+									"  padding-left: 33px;\r",
+									"  margin-bottom: 2px\r",
+									"}\r",
+									"\r",
+									"li input+ol>li {\r",
+									"  display: none;\r",
+									"  margin-left: -14px !important;\r",
+									"  padding-left: 1px\r",
+									"}\r",
+									"\r",
+									"li label.lbl_obj {\r",
+									"  background: url(folder.png)15px 1px no-repeat;\r",
+									"  cursor: pointer\r",
+									"}\r",
+									"\r",
+									"li label.lbl_array {\r",
+									"  background: url(array.png)15px 1px no-repeat;\r",
+									"  cursor: pointer\r",
+									"}\r",
+									"\r",
+									"li input:checked+ol {\r",
+									"  background: url(http://www.thecssninja.com/demo/css_tree/toggle-small.png)40px -3px no-repeat;\r",
+									"  margin: -20px 0 0 -44px;\r",
+									"  padding: 1.563em 0 0 80px;\r",
+									"  height: auto\r",
+									"}\r",
+									"\r",
+									"li input:checked+ol>li {\r",
+									"  display: block;\r",
+									"  margin: 0 0 .125em\r",
+									"}\r",
+									"\r",
+									"li input:checked+ol>li:last-child {\r",
+									"  margin: 0 0 .063em\r",
+									"}\r",
+									"\r",
+									".container {\r",
+									"  width: 970px;\r",
+									"  max-width: none !important\r",
+									"}\r",
+									"\r",
+									".col-xs-4 {\r",
+									"  padding-top: 15px;\r",
+									"  padding-bottom: 15px;\r",
+									"  background-color: #eee;\r",
+									"  background-color: rgba(86, 61, 124, .15);\r",
+									"  border: 1px solid #ddd;\r",
+									"  border: 1px solid rgba(86, 61, 124, .2)\r",
+									"}\r",
+									"\r",
+									"    </style>\r",
+									"<div id=\"html\">\r",
+									"<input type=\"text\" id=\"json\">\r",
+									"<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\r",
+									"<!--<script src=\"json2table.js\"></script>-->\r",
+									"<script>\r",
+									"$(function() {\r",
+									"    pm.getData((err, data) => {\r",
+									"        $(\"#json\").val(JSON.stringify(data.json));\r",
+									"        json2table(\"#html\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"function call(a) {\r",
+									"    $(\"#json\").val(JSON.stringify(a, void 0, 2));\r",
+									"    json2table()\r",
+									"}\r",
+									"\r",
+									"function json2table(selector) {\r",
+									"    $(selector).html(buildTable(getJsonVar()));\r",
+									"}\r",
+									"\r",
+									"function getJsonVar() {\r",
+									"    try {\r",
+									"        var a = $.parseJSON($(\"#json\").val());\r",
+									"        $(\"#json\").val(JSON.stringify(a, void 0, 2));\r",
+									"        return a\r",
+									"    } catch (e) {\r",
+									"        //return $(\"#error_msg\").text(e.message), $(\"#errorModal\").modal(\"show\"), {}\r",
+									"        alert(e);\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"function buildTable(a) {\r",
+									"    var e = document.createElement(\"table\"),\r",
+									"        d, b;\r",
+									"    if (isArray(a)) return buildArray(a);\r",
+									"    for (var c in a) \"object\" != typeof a[c] || isArray(a[c]) ? \"object\" == typeof a[c] && isArray(a[c]) ? (d = e.insertRow(-1), b = d.insertCell(-1), b.colSpan = 2, b.innerHTML = '<div class=\"td_head\">' + encodeText(c) + '</div><table style=\"width:100%\">' + $(buildArray(a[c]), !1).html() + \"</table>\") : (d = e.insertRow(-1), b = d.insertCell(-1), b.innerHTML = \"<div class='td_head'>\" + encodeText(c) + \"</div>\", d = d.insertCell(-1), d.innerHTML = \"<div class='td_row_even'>\" +\r",
+									"        encodeText(a[c]) + \"</div>\") : (d = e.insertRow(-1), b = d.insertCell(-1), b.colSpan = 2, b.innerHTML = '<div class=\"td_head\">' + encodeText(c) + '</div><table style=\"width:100%\">' + $(buildTable(a[c]), !1).html() + \"</table>\");\r",
+									"    return e\r",
+									"}\r",
+									"\r",
+									"function buildArray(a) {\r",
+									"    var e = document.createElement(\"table\"),\r",
+									"        d, b, c = !1,\r",
+									"        p = !1,\r",
+									"        m = {},\r",
+									"        h = -1,\r",
+									"        n = 0,\r",
+									"        l;\r",
+									"    l = \"\";\r",
+									"    if (0 == a.length) return \"<div></div>\";\r",
+									"    d = e.insertRow(-1);\r",
+									"    for (var f = 0; f < a.length; f++)\r",
+									"        if (\"object\" != typeof a[f] || isArray(a[f])) \"object\" == typeof a[f] && isArray(a[f]) ? (b = d.insertCell(h), b.colSpan = 2, b.innerHTML = '<div class=\"td_head\"></div><table style=\"width:100%\">' + $(buildArray(a[f]), !1).html() + \"</table>\", c = !0) : p || (h += 1, p = !0, b = d.insertCell(h), m.empty = h, b.innerHTML = \"<div class='td_head'>&nbsp;</div>\");\r",
+									"        else\r",
+									"            for (var k in a[f]) l =\r",
+									"                \"-\" + k, l in m || (c = !0, h += 1, b = d.insertCell(h), m[l] = h, b.innerHTML = \"<div class='td_head'>\" + encodeText(k) + \"</div>\");\r",
+									"    c || e.deleteRow(0);\r",
+									"    n = h + 1;\r",
+									"    for (f = 0; f < a.length; f++)\r",
+									"        if (d = e.insertRow(-1), td_class = isEven(f) ? \"td_row_even\" : \"td_row_odd\", \"object\" != typeof a[f] || isArray(a[f]))\r",
+									"            if (\"object\" == typeof a[f] && isArray(a[f]))\r",
+									"                for (h = m.empty, c = 0; c < n; c++) b = d.insertCell(c), b.className = td_class, l = c == h ? '<table style=\"width:100%\">' + $(buildArray(a[f]), !1).html() + \"</table>\" : \" \", b.innerHTML = \"<div class='\" + td_class + \"'>\" + encodeText(l) +\r",
+									"                    \"</div>\";\r",
+									"            else\r",
+									"                for (h = m.empty, c = 0; c < n; c++) b = d.insertCell(c), l = c == h ? a[f] : \" \", b.className = td_class, b.innerHTML = \"<div class='\" + td_class + \"'>\" + encodeText(l) + \"</div>\";\r",
+									"    else {\r",
+									"        for (c = 0; c < n; c++) b = d.insertCell(c), b.className = td_class, b.innerHTML = \"<div class='\" + td_class + \"'>&nbsp;</div>\";\r",
+									"        for (k in a[f]) c = a[f], l = \"-\" + k, h = m[l], b = d.cells[h], b.className = td_class, \"object\" != typeof c[k] || isArray(c[k]) ? \"object\" == typeof c[k] && isArray(c[k]) ? b.innerHTML = '<table style=\"width:100%\">' + $(buildArray(c[k]), !1).html() + \"</table>\" : b.innerHTML =\r",
+									"            \"<div class='\" + td_class + \"'>\" + encodeText(c[k]) + \"</div>\" : b.innerHTML = '<table style=\"width:100%\">' + $(buildTable(c[k]), !1).html() + \"</table>\"\r",
+									"    }\r",
+									"    return e\r",
+									"}\r",
+									"\r",
+									"function encodeText(a) {\r",
+									"    return $(\"<div />\").text(a).html()\r",
+									"}\r",
+									"\r",
+									"function isArray(a) {\r",
+									"    return \"[object Array]\" === Object.prototype.toString.call(a)\r",
+									"}\r",
+									"\r",
+									"function isEven(a) {\r",
+									"    return 0 == a % 2\r",
+									"}\r",
+									"</script>`;\r",
+									"\r",
+									"\r",
+									"// In case you only want a specific property, change it here.\r",
+									"//\r",
+									"// Default: You can set the entire JSON response using pm.response.json()\r",
+									"let tableProps = {\r",
+									"    json: pm.response.json()\r",
+									"};\r",
+									"\r",
+									"pm.visualizer.set(template, tableProps);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://postman-echo.com/post",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API2 Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API2 prerequest script\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API2 test script\")\r",
+									"// GO TO THE END OF THE TEST SCRIPT.\r",
+									"var template = `\r",
+									"<style>\r",
+									"        .fill,\r",
+									"body,\r",
+									"html {\r",
+									"  height: 100%\r",
+									"}\r",
+									"\r",
+									"#json_vl,\r",
+									".td_head,\r",
+									".td_row_even,\r",
+									".td_row_odd {\r",
+									"  font-size: small\r",
+									"}\r",
+									"\r",
+									"#json_pnl,\r",
+									"#xxa,\r",
+									".navbar-header,\r",
+									".navbar-nav,\r",
+									".navbar-nav>li,\r",
+									".td_head {\r",
+									"  float: left\r",
+									"}\r",
+									"\r",
+									".fill {\r",
+									"  min-height: 100%\r",
+									"}\r",
+									"\r",
+									"#json_vl {\r",
+									"  font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace\r",
+									"}\r",
+									"\r",
+									"#widget {\r",
+									"  width: 100%\r",
+									"}\r",
+									"\r",
+									".top_size {\r",
+									"  height: 51px\r",
+									"}\r",
+									"\r",
+									"#all_panels {\r",
+									"  height: 100%;\r",
+									"  min-height: 100%\r",
+									"}\r",
+									"\r",
+									"#aboutLnk {\r",
+									"  position: fixed;\r",
+									"  right: 10px;\r",
+									"  top: 15px\r",
+									"}\r",
+									"\r",
+									"#inner_text {\r",
+									"  display: block;\r",
+									"  position: absolute;\r",
+									"  height: auto;\r",
+									"  bottom: 0;\r",
+									"  top: 0;\r",
+									"  left: 0;\r",
+									"  right: 0;\r",
+									"  margin-top: 51px;\r",
+									"  margin-bottom: 0\r",
+									"}\r",
+									"\r",
+									"#json_pnl {\r",
+									"  background-color: #ccc;\r",
+									"  width: 33.3%\r",
+									"}\r",
+									"\r",
+									"#xxa {\r",
+									"  background-color: #E8E8E8;\r",
+									"  width: 66.7%\r",
+									"}\r",
+									"\r",
+									"#table_pnl,\r",
+									"#tree_pnl {\r",
+									"  background-color: #E8E8E8;\r",
+									"  float: left;\r",
+									"  width: 50%\r",
+									"}\r",
+									"\r",
+									"#sharethis {\r",
+									"  position: fixed;\r",
+									"  right: 80px;\r",
+									"  top: 10px\r",
+									"}\r",
+									"\r",
+									"#inner_tbl {\r",
+									"  padding-left: 2px\r",
+									"}\r",
+									"\r",
+									".td_row_even {\r",
+									"  padding: 2px;\r",
+									"  background-color: #F6F4F0\r",
+									"}\r",
+									"\r",
+									".td_row_odd {\r",
+									"  padding: 2px;\r",
+									"  background-color: #FFF\r",
+									"}\r",
+									"\r",
+									".td_head {\r",
+									"  padding: 2px;\r",
+									"  font-weight: 700\r",
+									"}\r",
+									"\r",
+									"input,\r",
+									"p,\r",
+									"select,\r",
+									"td,\r",
+									"textarea,\r",
+									"th {\r",
+									"  font-size: 1em\r",
+									"}\r",
+									"\r",
+									"table,\r",
+									"td,\r",
+									"th {\r",
+									"  border: 1px solid gray\r",
+									"}\r",
+									"\r",
+									"textarea {\r",
+									"  -moz-box-sizing: border-box;\r",
+									"  -webkit-box-sizing: border-box;\r",
+									"  box-sizing: border-box;\r",
+									"  display: block;\r",
+									"  width: 100%;\r",
+									"  height: 100%;\r",
+									"  margin: 0;\r",
+									"  padding: 4px;\r",
+									"  border: 1px solid #333;\r",
+									"  overflow-y: auto;\r",
+									"  overflow-x: hidden\r",
+									"}\r",
+									"\r",
+									"*,\r",
+									"html {\r",
+									"  font-family: Verdana, Arial, Helvetica, sans-serif\r",
+									"}\r",
+									"\r",
+									"form,\r",
+									"h1,\r",
+									"h2,\r",
+									"h3,\r",
+									"h4,\r",
+									"h5,\r",
+									"li,\r",
+									"p,\r",
+									"ul {\r",
+									"  margin: 0;\r",
+									"  padding: 0\r",
+									"}\r",
+									"\r",
+									"img {\r",
+									"  border: none\r",
+									"}\r",
+									"\r",
+									"p {\r",
+									"  margin: 0 0 1em\r",
+									"}\r",
+									"\r",
+									"table {\r",
+									"  font-size: 100%;\r",
+									"  background-color: white;\r",
+									"}\r",
+									"\r",
+									"ol.tree {\r",
+									"  padding: 0 0 0 30px;\r",
+									"  width: 300px\r",
+									"}\r",
+									"\r",
+									"li {\r",
+									"  position: relative;\r",
+									"  margin-left: -15px;\r",
+									"  list-style: none\r",
+									"}\r",
+									"\r",
+									"li.file {\r",
+									"  margin-left: -1px !important\r",
+									"}\r",
+									"\r",
+									"li.file a {\r",
+									"  background: url(leaf.png)0 5px no-repeat;\r",
+									"  color: #000;\r",
+									"  padding-left: 12px;\r",
+									"  text-decoration: none;\r",
+									"  display: block;\r",
+									"  font-size: small\r",
+									"}\r",
+									"\r",
+									"li.file a[href$='.css'],\r",
+									"li.file a[href$='.js'],\r",
+									"li.file a[href*='.pdf'],\r",
+									"li.file a[href*='.html'] {\r",
+									"  background: url(http://www.thecssninja.com/demo/css_tree/document.png)no-repeat\r",
+									"}\r",
+									"\r",
+									"li input {\r",
+									"  position: absolute;\r",
+									"  left: 0;\r",
+									"  margin-left: 0;\r",
+									"  opacity: 0;\r",
+									"  z-index: 2;\r",
+									"  cursor: pointer;\r",
+									"  height: 1em;\r",
+									"  width: 1em;\r",
+									"  top: 0\r",
+									"}\r",
+									"\r",
+									"li input+ol {\r",
+									"  background: url(http://www.thecssninja.com/demo/css_tree/toggle-small-expand.png)40px -3px no-repeat;\r",
+									"  margin: -20px 0 0 -44px;\r",
+									"  height: 1em;\r",
+									"  padding: 1.563em 0 0 80px\r",
+									"}\r",
+									"\r",
+									"li label.lbl_array,\r",
+									"li label.lbl_obj {\r",
+									"  display: block;\r",
+									"  padding-left: 33px;\r",
+									"  margin-bottom: 2px\r",
+									"}\r",
+									"\r",
+									"li input+ol>li {\r",
+									"  display: none;\r",
+									"  margin-left: -14px !important;\r",
+									"  padding-left: 1px\r",
+									"}\r",
+									"\r",
+									"li label.lbl_obj {\r",
+									"  background: url(folder.png)15px 1px no-repeat;\r",
+									"  cursor: pointer\r",
+									"}\r",
+									"\r",
+									"li label.lbl_array {\r",
+									"  background: url(array.png)15px 1px no-repeat;\r",
+									"  cursor: pointer\r",
+									"}\r",
+									"\r",
+									"li input:checked+ol {\r",
+									"  background: url(http://www.thecssninja.com/demo/css_tree/toggle-small.png)40px -3px no-repeat;\r",
+									"  margin: -20px 0 0 -44px;\r",
+									"  padding: 1.563em 0 0 80px;\r",
+									"  height: auto\r",
+									"}\r",
+									"\r",
+									"li input:checked+ol>li {\r",
+									"  display: block;\r",
+									"  margin: 0 0 .125em\r",
+									"}\r",
+									"\r",
+									"li input:checked+ol>li:last-child {\r",
+									"  margin: 0 0 .063em\r",
+									"}\r",
+									"\r",
+									".container {\r",
+									"  width: 970px;\r",
+									"  max-width: none !important\r",
+									"}\r",
+									"\r",
+									".col-xs-4 {\r",
+									"  padding-top: 15px;\r",
+									"  padding-bottom: 15px;\r",
+									"  background-color: #eee;\r",
+									"  background-color: rgba(86, 61, 124, .15);\r",
+									"  border: 1px solid #ddd;\r",
+									"  border: 1px solid rgba(86, 61, 124, .2)\r",
+									"}\r",
+									"\r",
+									"    </style>\r",
+									"<div id=\"html\">\r",
+									"<input type=\"text\" id=\"json\">\r",
+									"<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\r",
+									"<!--<script src=\"json2table.js\"></script>-->\r",
+									"<script>\r",
+									"$(function() {\r",
+									"    pm.getData((err, data) => {\r",
+									"        $(\"#json\").val(JSON.stringify(data.json));\r",
+									"        json2table(\"#html\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"function call(a) {\r",
+									"    $(\"#json\").val(JSON.stringify(a, void 0, 2));\r",
+									"    json2table()\r",
+									"}\r",
+									"\r",
+									"function json2table(selector) {\r",
+									"    $(selector).html(buildTable(getJsonVar()));\r",
+									"}\r",
+									"\r",
+									"function getJsonVar() {\r",
+									"    try {\r",
+									"        var a = $.parseJSON($(\"#json\").val());\r",
+									"        $(\"#json\").val(JSON.stringify(a, void 0, 2));\r",
+									"        return a\r",
+									"    } catch (e) {\r",
+									"        //return $(\"#error_msg\").text(e.message), $(\"#errorModal\").modal(\"show\"), {}\r",
+									"        alert(e);\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"function buildTable(a) {\r",
+									"    var e = document.createElement(\"table\"),\r",
+									"        d, b;\r",
+									"    if (isArray(a)) return buildArray(a);\r",
+									"    for (var c in a) \"object\" != typeof a[c] || isArray(a[c]) ? \"object\" == typeof a[c] && isArray(a[c]) ? (d = e.insertRow(-1), b = d.insertCell(-1), b.colSpan = 2, b.innerHTML = '<div class=\"td_head\">' + encodeText(c) + '</div><table style=\"width:100%\">' + $(buildArray(a[c]), !1).html() + \"</table>\") : (d = e.insertRow(-1), b = d.insertCell(-1), b.innerHTML = \"<div class='td_head'>\" + encodeText(c) + \"</div>\", d = d.insertCell(-1), d.innerHTML = \"<div class='td_row_even'>\" +\r",
+									"        encodeText(a[c]) + \"</div>\") : (d = e.insertRow(-1), b = d.insertCell(-1), b.colSpan = 2, b.innerHTML = '<div class=\"td_head\">' + encodeText(c) + '</div><table style=\"width:100%\">' + $(buildTable(a[c]), !1).html() + \"</table>\");\r",
+									"    return e\r",
+									"}\r",
+									"\r",
+									"function buildArray(a) {\r",
+									"    var e = document.createElement(\"table\"),\r",
+									"        d, b, c = !1,\r",
+									"        p = !1,\r",
+									"        m = {},\r",
+									"        h = -1,\r",
+									"        n = 0,\r",
+									"        l;\r",
+									"    l = \"\";\r",
+									"    if (0 == a.length) return \"<div></div>\";\r",
+									"    d = e.insertRow(-1);\r",
+									"    for (var f = 0; f < a.length; f++)\r",
+									"        if (\"object\" != typeof a[f] || isArray(a[f])) \"object\" == typeof a[f] && isArray(a[f]) ? (b = d.insertCell(h), b.colSpan = 2, b.innerHTML = '<div class=\"td_head\"></div><table style=\"width:100%\">' + $(buildArray(a[f]), !1).html() + \"</table>\", c = !0) : p || (h += 1, p = !0, b = d.insertCell(h), m.empty = h, b.innerHTML = \"<div class='td_head'>&nbsp;</div>\");\r",
+									"        else\r",
+									"            for (var k in a[f]) l =\r",
+									"                \"-\" + k, l in m || (c = !0, h += 1, b = d.insertCell(h), m[l] = h, b.innerHTML = \"<div class='td_head'>\" + encodeText(k) + \"</div>\");\r",
+									"    c || e.deleteRow(0);\r",
+									"    n = h + 1;\r",
+									"    for (f = 0; f < a.length; f++)\r",
+									"        if (d = e.insertRow(-1), td_class = isEven(f) ? \"td_row_even\" : \"td_row_odd\", \"object\" != typeof a[f] || isArray(a[f]))\r",
+									"            if (\"object\" == typeof a[f] && isArray(a[f]))\r",
+									"                for (h = m.empty, c = 0; c < n; c++) b = d.insertCell(c), b.className = td_class, l = c == h ? '<table style=\"width:100%\">' + $(buildArray(a[f]), !1).html() + \"</table>\" : \" \", b.innerHTML = \"<div class='\" + td_class + \"'>\" + encodeText(l) +\r",
+									"                    \"</div>\";\r",
+									"            else\r",
+									"                for (h = m.empty, c = 0; c < n; c++) b = d.insertCell(c), l = c == h ? a[f] : \" \", b.className = td_class, b.innerHTML = \"<div class='\" + td_class + \"'>\" + encodeText(l) + \"</div>\";\r",
+									"    else {\r",
+									"        for (c = 0; c < n; c++) b = d.insertCell(c), b.className = td_class, b.innerHTML = \"<div class='\" + td_class + \"'>&nbsp;</div>\";\r",
+									"        for (k in a[f]) c = a[f], l = \"-\" + k, h = m[l], b = d.cells[h], b.className = td_class, \"object\" != typeof c[k] || isArray(c[k]) ? \"object\" == typeof c[k] && isArray(c[k]) ? b.innerHTML = '<table style=\"width:100%\">' + $(buildArray(c[k]), !1).html() + \"</table>\" : b.innerHTML =\r",
+									"            \"<div class='\" + td_class + \"'>\" + encodeText(c[k]) + \"</div>\" : b.innerHTML = '<table style=\"width:100%\">' + $(buildTable(c[k]), !1).html() + \"</table>\"\r",
+									"    }\r",
+									"    return e\r",
+									"}\r",
+									"\r",
+									"function encodeText(a) {\r",
+									"    return $(\"<div />\").text(a).html()\r",
+									"}\r",
+									"\r",
+									"function isArray(a) {\r",
+									"    return \"[object Array]\" === Object.prototype.toString.call(a)\r",
+									"}\r",
+									"\r",
+									"function isEven(a) {\r",
+									"    return 0 == a % 2\r",
+									"}\r",
+									"</script>`;\r",
+									"\r",
+									"\r",
+									"// In case you only want a specific property, change it here.\r",
+									"//\r",
+									"// Default: You can set the entire JSON response using pm.response.json()\r",
+									"let tableProps = {\r",
+									"    json: pm.response.json()\r",
+									"};\r",
+									"\r",
+									"pm.visualizer.set(template, tableProps);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://postman-echo.com/post",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"console.log(\"Folder1 prerequest script\")"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"console.log(\"Folder1 test script\")",
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Folder2",
+			"item": [
+				{
+					"name": "Api3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Folder2-API3 prerequest script\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API3 test script\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/put",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"put"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Api4",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Folder2-API4 prerequest script\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API4 test script\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/delete",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Api5",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Folder2-API5 prerequest script\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API5 test script\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/patch",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"patch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Api6",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Folder2-API6 prerequest script\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API6 test script\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "HEAD",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Api7",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Folder2-API7 prerequest script\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Folder1-API7 test script\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/options",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"options"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"console.log(\"Folder2 prerequest script\")"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// console.log(\"Collection prerequest script\");",
+					"// let local_globalToken=pm.globals.get(\"globalToken\");",
+					"// console.log(`\\t globalToken value: ${local_globalToken}`);",
+					"// let local_environmentVariable1 = pm.environment.get(\"environmentVariable1\");",
+					"// console.log(`\\t environmentVariable1 value: ${local_environmentVariable1}`);",
+					"// console.log(`\\t globalVariable1 value: ${pm.globals.get(\"globalVariable1\")}`);",
+					"// var randomNum=pm.variables.get(\"$guid\");",
+					"// console.log(`randomNum:${randomNum}`)",
+					"",
+					"// pm.globals.set(\"globalVariable1\",randomNum);",
+					"// console.log(`\\t Setting the global variable{globalVariable1} as ${pm.globals.get(\"globalVariable1\")}`);",
+					"// var local_collection1Variable1=pm.collectionVariables.get(\"collection1Variable1\");",
+					"// console.log(`\\t let_local_collection1Variable1 value: ${local_collection1Variable1}`);",
+					"// pm.collectionVariables.set(\"collection1Variable1\",\"456\");",
+					"// console.log(\"After changing\");",
+					"// console.log(`\\t let_local_collection1Variable1 value: ${local_collection1Variable1}`);",
+					"// pm.variables.get(\"\")",
+					"// //pm.environment.unset(\"environmentVariable1\");",
+					"// //console.log(`clear environmentVariable1: ${pm.environment.get(\"environmentVariable1\")}`);",
+					"",
+					"// pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+					"//     console.log(response.json());",
+					"// });"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// console.log(\"Collection test script\")",
+					"",
+					"// pm.test(\"Status code is 200\", function () {",
+					"//     pm.response.to.have.status(500);",
+					"// });",
+					"// pm.test(\"Body matches string\", function () {",
+					"//     pm.expect(pm.response.text()).to.include(\"string_you_want_to_search\");",
+					"// });",
+					"// pm.test(\"Your test name\", function () {",
+					"//     var jsonData = pm.response.json();",
+					"//     pm.expect(jsonData.value).to.eql(100);",
+					"// });",
+					"// pm.test(\"Body is correct\", function () {",
+					"//     pm.response.to.have.body(\"response_body_string\");",
+					"// });",
+					"// pm.test(\"Content-Type is present\", function () {",
+					"//     pm.response.to.have.header(\"Content-Type\");",
+					"// });",
+					"// pm.test(\"Response time is less than 200ms\", function () {",
+					"//     pm.expect(pm.response.responseTime).to.be.below(200);",
+					"// });",
+					"// pm.test(\"Successful POST request\", function () {",
+					"//     pm.expect(pm.response.code).to.be.oneOf([201, 202]);",
+					"// });",
+					"// pm.test(\"Status code name has string\", function () {",
+					"//     pm.response.to.have.status(\"Created\");",
+					"// });",
+					"// var jsonObject = xml2Json(responseBody);",
+					"// var schema = {",
+					"//     \"items\": {",
+					"//         \"type\": \"boolean\"",
+					"//     }",
+					"// };",
+					"",
+					"// var data1 = [true, false];",
+					"// var data2 = [true, 123];",
+					"",
+					"// pm.test('Schema is valid', function () {",
+					"//     pm.expect(tv4.validate(data1, schema)).to.be.true;",
+					"//     pm.expect(tv4.validate(data2, schema)).to.be.true;",
+					"// });"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "collection1Variable1",
+			"value": "collection1Variable1_initialValue",
+			"type": "string"
+		}
+	]
+}

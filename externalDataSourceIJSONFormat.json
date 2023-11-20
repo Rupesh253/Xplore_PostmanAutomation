@@ -1,0 +1,24 @@
+[
+    {
+      "name1": "Rupesh1",
+      "age1": 301,
+      "name2": "Rupesh2",
+      "age2": 302,
+      "name3": "Rupesh3",
+      "age3": 303,
+      "obj": {
+        "prop1": "value1"
+      }
+    },
+    {
+      "name1": "Somala",
+      "age1": 311,
+      "name2": "Somala",
+      "age2": 312,
+      "name3": "Somala",
+      "age3": 312,
+      "obj": {
+        "prop1": "value11"
+      }
+    }
+  ]

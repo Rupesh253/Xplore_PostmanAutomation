@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "5117c83f-1d08-4f71-958b-4509b8aed547",
+		"name": "DataDrivenTesting(DDT) Examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31008604"
+	},
+	"item": [
+		{
+			"name": "Try1",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log('\\t Request Prerequest');\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(`LOG:Sending Name=${data.name1},Age=${data.age1}, obj as:${data.obj}`);\r",
+							"console.info(`INFO:Sending Name=${data.name1},Age=${data.age1}, obj as:${data.obj}`);\r",
+							"console.warn(`WARN:Sending Name=${data.name1},Age=${data.age1}, obj as:${data.obj}`);\r",
+							"console.error(`ERROR:Sending Name=${data.name1},Age=${data.age1}, obj as:${data.obj}`);\r",
+							"\r",
+							"pm.test(`Sending Name=${data.name1},Age=${data.age1}, obj as:${data.obj}`, () => {\r",
+							"  pm.expect(pm.response.code).to.be.equals(200);\r",
+							"  console.log(`\\tLOG:Sending Name=${data.name1},Age=${data.age1}, obj as:${data.obj}`);\r",
+							"  console.info(`\\tINFO:Sending Name=${data.name1},Age=${data.age1}, obj as:${data.obj}`);\r",
+							"  console.warn(`\\tWARN:Sending Name=${data.name1},Age=${data.age1}, obj as:${data.obj}`);\r",
+							"  console.error(`\\tERROR:Sending Name=${data.name1},Age=${data.age1}, obj as:${data.obj}`);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": {{name1}},\r\n    \"age\": {{age1}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://postman-echo.com/post",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Try2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log('\\t Request Prerequest');\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(`LOG:Sending Name=${data.name2},Age=${data.age2}, obj as:${data.obj}`);\r",
+							"console.info(`INFO:Sending Name=${data.name2},Age=${data.age2}, obj as:${data.obj}`);\r",
+							"console.warn(`WARN:Sending Name=${data.name2},Age=${data.age2}, obj as:${data.obj}`);\r",
+							"console.error(`ERROR:Sending Name=${data.name2},Age=${data.age2}, obj as:${data.obj}`);\r",
+							"\r",
+							"pm.test(`Sending Name=${data.name2},Age=${data.age2}, obj as:${data.obj}`, () => {\r",
+							"  pm.expect(pm.response.code).to.be.equals(200);\r",
+							"  console.log(`\\tLOG:Sending Name=${data.name2},Age=${data.age2}, obj as:${data.obj}`);\r",
+							"  console.info(`\\tINFO:Sending Name=${data.name2},Age=${data.age2}, obj as:${data.obj}`);\r",
+							"  console.warn(`\\tWARN:Sending Name=${data.name2},Age=${data.age2}, obj as:${data.obj}`);\r",
+							"  console.error(`\\tERROR:Sending Name=${data.name2},Age=${data.age2}, obj as:${data.obj}`);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": {{name2}},\r\n    \"age\": {{age2}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://postman-echo.com/post",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Try3",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log('\\t Request Prerequest');\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(`LOG:Sending Name=${data.name3},Age=${data.age3}, obj as:${data.obj}`);\r",
+							"console.info(`INFO:Sending Name=${data.name3},Age=${data.age3}, obj as:${data.obj}`);\r",
+							"console.warn(`WARN:Sending Name=${data.name3},Age=${data.age3}, obj as:${data.obj}`);\r",
+							"console.error(`ERROR:Sending Name=${data.name3},Age=${data.age3}, obj as:${data.obj}`);\r",
+							"\r",
+							"pm.test(`Sending Name=${data.name3},Age=${data.age3}, obj as:${data.obj}`, () => {\r",
+							"  pm.expect(pm.response.code).to.be.equals(200);\r",
+							"  console.log(`\\tLOG:Sending Name=${data.name3},Age=${data.age3}, obj as:${data.obj}`);\r",
+							"  console.info(`\\tINFO:Sending Name=${data.name3},Age=${data.age3}, obj as:${data.obj}`);\r",
+							"  console.warn(`\\tWARN:Sending Name=${data.name3},Age=${data.age3}, obj as:${data.obj}`);\r",
+							"  console.error(`\\tERROR:Sending Name=${data.name3},Age=${data.age3}, obj as:${data.obj}`);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": {{name3}},\r\n    \"age\": {{age3}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://postman-echo.com/post",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"console.log('\\t Collection Prerequest');",
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
